@@ -8,5 +8,9 @@ int main() {
     printf("Hello World");
     printf("\n%s", name);
 
+    for(;x >= 0; x--) {
+        printf("\n%d", x);
+    }
+
     return 0;
 }

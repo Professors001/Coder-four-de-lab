@@ -42,9 +42,6 @@ void printRecords(studentRecord list[], int size) {
 	}
 }
 
-
-
-
 int main() {
 	int enter;
 	studentRecord list[3];

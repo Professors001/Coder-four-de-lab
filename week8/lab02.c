@@ -18,16 +18,15 @@ void init(studentRecord list[], int size) {
 }
 
 void enterScore(studentRecord list[], int size){
-    char id[13];
+    char id[13], comp[13];
     int score, st, len, i = 0, key = 1;
     for(;i < size; i++) {
         scanf("%s %d", id, &score);
         len = strlen(id); st = 8 - len; 
         for(int j = 0;j < size; j++) {
-            char comp[13];
             strncpy(comp, list[j].id + st, len+1);
             comp[len+1] = '\0';
-            if(strcmp(comp, id) == 0) {
+            if (strstr(list[j].id, id) != NULL) {
                 list[j].score = score;
             }
         }

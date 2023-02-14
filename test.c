@@ -1,74 +1,49 @@
 #include <stdio.h>
+#include <string.h>
 
-void roman2arabic(char input[],char output[])
-{
-    int i = 0, j = 0;
-    char temp;
-    while(input[i] != '\0') {
-        temp = input[i];
-        if (input[i] == 'V' && input[i+1] == 'I' && input[i+2] == 'I' && input[i+3] == 'I') {
-            output[j] = '8';
-            i+=4;
-            j++;
-        }
-        else if (input[i] == 'I' && input[i+1] == 'I' && input[i+2] == 'I') {
-            output[j] = '3';
-            i+=3;
-            j++;
-        }
-        else if (input[i] == 'V' && input[i+1] == 'I' && input[i+2] == 'I') {
-            output[j] = '7';
-            i+=3;
-            j++;
-        }
-        else if (input[i] == 'I' && input[i+1] == 'I') {
-            output[j] = '2';
-            i+=2;
-            j++;
-        }
-        else if (input[i] == 'I' && input[i+1] == 'V') {
-            output[j] = '4';
-            i+=2;
-            j++;
-        }
-        else if (input[i] == 'I' && input[i+1] == 'X') {
-            output[j] = '9';
-            i+=2;
-            j++;
-        }
-        else if (input[i] == 'V' && input[i+1] == 'I') {
-            output[j] = '6';
-            i+=2;
-            j++;
-        }
-        else if (input[i] == 'I') {
-            output[j] = '1';
-            i++;
-            j++;
-        }
-        else if (input[i] == 'V') {
-            output[j] = '5';
-            i++;
-            j++;
-        }
-        else {
-            output[j] = input[i];
-            i++;
-            j++;
-        }
-        output[j] = temp;
-    }
-    output[j] = '\0';
+typedef struct {
+    char id[12];
+    int score;
+} studentRecord;
+
+void init(studentRecord list[], int size){
+    list[0].id == '55100001';
+    list[0].score = 0;
+    list[1].id == '55100002';
+    list[1].score = 0;
+    list[2].id == '55100003';
+    list[2].score = 0;
 }
 
-int main()
-{  char input[80],output[80];
+void enterScore(studentRecord list[], int size){
+    int b,i,y;
+    char a[10];
+    for (i=0 ;i<size ;i++){
+        scanf("%s %d",a,&b);
+        for (y=0;y<size;y++){
+            if (a[y]=='1'){
+                list[0].score=b;
+            }else if (a[y]=='2'){
+                list[1].score=b;
+            }else if (a[y]=='3'){
+                list[2].score=b;
+            }
+        }
+    }
+}
+void printRecords(studentRecord list[], int size) {
+    int i;
+    printf("   ID        Score\n");
+    for (i = 0; i < size; i++) {
+        printf("%s       %d\n", list[i].id, list[i].score);
+    }
+}
+int main() {
+    int enter;
+    studentRecord list[3];
 
-   printf(" Input: ");
-   gets(input);  /* read a line of characters from the input to "input" variable */
-
-   roman2arabic(input,output);
-   printf("Output: %s\n",output);
-
-   return 0;
+    init(list, 3);
+    enterScore(list, 3);
+    printRecords(list, 3);
+    return 0;
 }

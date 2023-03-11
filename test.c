@@ -1,50 +1,72 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE  97
+typedef struct LinkList {
+    int value;
+    struct LinkList* NextNode;
+}Node;
 
-typedef struct nodeType {
-  int   item;
-  struct nodeType* next;
-} Node;
+void printList(Node *head) {
+    Node* current = head;
+    puts("Print LinkList");
+    while(current) {
+        printf("%d ", current->value);
+        current = current->NextNode;
+    }
+    puts(""); puts("-------------------------");
+}
 
-void printNode(Node *start) {
-    for(int i = 0; i < SIZE; i++) {
-        Node *current = start;
-        printf("KEY% 3d: ", i);
-        while(current != NULL) {
-            if((current->item % SIZE) == i) {
-                printf("%d ", current->item);
-            }
-            current = current->next;
+void addList(Node** head,int n) {
+    Node* temp = (Node*)malloc(sizeof(Node));
+    temp->value = n; temp->NextNode = NULL;
+    if((*head) == NULL) {
+        (*head) = temp;
+    } else {
+        Node* runner = *head;
+        while(runner->NextNode) {
+            runner = runner->NextNode;
         }
-        puts("");
+        runner->NextNode = temp;
     }
 }
 
-void addNode(Node **start, int value) {
-    //it work now dont touch it
-    Node *temp = (Node*)malloc(sizeof(Node));
-    temp->item = value; temp->next = *start;
-    *start = temp;
+void deleteList(Node** head,int target) {
+    Node* runner = *head; Node* prev = NULL;
+    while(runner != NULL) {
+        if(runner->value != target) {
+            prev = runner;
+            runner = runner->NextNode;
+        } else {
+            if(prev == NULL) {
+                *head = runner->NextNode;
+                free(runner); runner = (*head)->NextNode;
+            } else {
+                prev->NextNode = runner->NextNode;
+                Node* temp = runner;
+                runner = runner->NextNode;
+                free(temp);
+            }
+        }
+    }
 }
 
 int main() {
-    Node *start = NULL;
-    int check = 1, value, i = 0;
-    
-    char christ, array[16];
-    while(check) {
-        christ = '0';
-        printf("input> ");
-        fgets(array,16,stdin);
-        sscanf(array,"%c %d",&christ,&value);
-        if (christ == 'a')
-            addNode(&start, value);
-        else if (christ == 'p')
-            printNode(start);
-        else if (christ == 'q')
-            check = 0;
-        
+    Node* head = NULL;
+    int x = 10;
+    for(int i = 0;i < 10;i++) {
+        addList(&head, i);
     }
+    for(int i = 0;i < 10;i++) {
+        addList(&head, 5);
+    }
+    printList(head);
+    deleteList(&head, 0);
+    printList(head);
+    deleteList(&head, 0);
+    printList(head);
+    deleteList(&head, 9);
+    printList(head);
+    deleteList(&head, 5);
+    printList(head);
+    return 0;
 }

@@ -20,7 +20,7 @@ void insertNode(Node **start, int value) {
     Node *temp = (Node*)malloc(sizeof(Node));
     temp->value = value;
     if(*start == NULL) {
-        temp->next = *start;
+        temp->next = NULL;
         *start = temp;
     } else if((*start)->value > value) {
         temp->next = *start;

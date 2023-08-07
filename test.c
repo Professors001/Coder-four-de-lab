@@ -1,32 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-typedef struct _box {
-    char name[10];
+struct student
+{
+    char name[20];
     int score;
-}Box;
+};
+
 
 int main() {
-    double sumScore = 0;
-    Box stud[5];
-    for(int i = 0;i < 5;i++) {
-        printf("Name: ");
-        fgets(stud[i].name, 10, stdin);
-        strtok(stud[i].name, "\n");
-        printf("Score: ");
-        scanf("\n%d", &stud[i].score);
-        sumScore += stud[i].score;
-        getchar();
+    double mean;
+    int totalScore = 0;
+    struct student nisit[5];
+    for (int i = 0; i < 5; i++) {
+        printf("Enter your name : ");
+        scanf("%s", nisit[i].name);
+        printf("Enter your score : ");
+        scanf("%d", &nisit[i].score);
+        totalScore += nisit[i].score; 
     }
-    sumScore /= 5;
-    printf("Average = %.2f\n", sumScore);
-
-    for(int i = 0; i < 5;i++) {
-        int score = stud[i].score;
-        if (score > sumScore) {
-           printf("%s %d\n", stud[i].name, stud[i].score);
-        }
+    mean = totalScore/5.0;
+    printf("------------------------------------------");
+    printf("more than averange ! (avg is %lf)\n", mean);
+    for (int i = 0; i < 5; i++) {
+        if (nisit[i].score >= mean)
+            printf("Name : %s  score : %d\n", nisit[i].name, nisit[i].score);
     }
-    return 0;
 }

@@ -1,76 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct Node_ {
-    int value;
-    struct Node_ *next;
-} Node;
-
-void printNode(Node *start) {
-    Node *current = start;
-    printf("[ ");
-    while(current != NULL) {
-        printf("%d ", current->value);
-        current = current->next;        
-    }
-    printf("]\n");
-}
-
-void insertNode(Node **start, int value) {
-    Node *temp = (Node*)malloc(sizeof(Node));
-    temp->value = value;
-    if(*start == NULL) {
-        temp->next = NULL;
-        *start = temp;
-    } else if((*start)->value > value) {
-        temp->next = *start;
-        *start = temp;
-    } else {
-        Node *current = *start;
-        while (current->next != NULL && current->next->value < value) {
-            current = current->next;
-        }
-        temp->next = current->next;
-        current->next = temp;
-    }
-}
-
-void deleteNode(Node **start, int value) {
-    Node *current = *start, *prev = NULL;
-    while(current != NULL) {
-        if(current->value == value) {
-            if(current == *start)
-                *start = current->next;
-            else
-                prev->next = current->next;
-            Node *temp = current;
-            current = current->next;
-            free(temp);
-        }
-        else {
-            prev = current;
-            current = current->next;
-        }
-    }
-}
+typedef struct _box {
+    char name[10];
+    int score;
+}Box;
 
 int main() {
-    Node *start = NULL;
-    int check = 1, value;
-    char christ, array[32];
-    while(check) {
-        christ = '0';
-        printf("input> ");
-        fgets(array,32,stdin);
-        sscanf(array,"%c %d",&christ,&value);
-        if (christ == 'i')
-            insertNode(&start, value);
-        else if (christ == 'p')
-            printNode(start);
-        else if (christ == 'd')
-            deleteNode(&start, value);
-        else if (christ == 'q')
-            check = 0;
-        
+    double sumScore = 0;
+    Box stud[5];
+    for(int i = 0;i < 5;i++) {
+        printf("Name: ");
+        fgets(stud[i].name, 10, stdin);
+        strtok(stud[i].name, "\n");
+        printf("Score: ");
+        scanf("\n%d", &stud[i].score);
+        sumScore += stud[i].score;
+        getchar();
     }
+    sumScore /= 5;
+    printf("Average = %.2f\n", sumScore);
+
+    for(int i = 0; i < 5;i++) {
+        int score = stud[i].score;
+        if (score > sumScore) {
+           printf("%s %d\n", stud[i].name, stud[i].score);
+        }
+    }
+    return 0;
 }
